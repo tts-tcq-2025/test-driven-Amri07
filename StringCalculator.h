@@ -1,19 +1,18 @@
-#ifndef STRINGCALCULATOR_H
-#define STRINGCALCULATOR_H
+#ifndef STRINGCALCULATOR_H_
+#define STRINGCALCULATOR_H_
 
 #include <string>
 #include <vector>
-#include <stdexcept>
 
 class StringCalculator {
-public:
-    int add(const std::string& input);
+ public:
+  int add(const std::string& numbers);
 
-private:
-    std::vector<int> parseInput(const std::string& input);
-    void validateNumbers(const std::vector<int>& numbers);
-    std::vector<std::string> split(const std::string& input, const std::string& delimiter);
-    std::string extractDelimiter(const std::string& input);
+ private:
+  std::vector<int> parseNumbers(const std::string& numbers, std::string& delimiter);
+  void validateNumbers(const std::vector<int>& numbers);
+  int sumNumbers(const std::vector<int>& numbers);
+  std::string join(const std::vector<int>& numbers, const std::string& delimiter);
 };
 
-#endif // STRINGCALCULATOR_H
+#endif  // STRINGCALCULATOR_H_

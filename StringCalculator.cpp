@@ -5,10 +5,9 @@
 #include <string>
 #include <vector>
 
-int StringCalculator::add(const std::string& numbers) {
-  if (numbers.empty()) return 0;
+namespace {
+std::string extractDelimiter(const std::string& numbers, std::string& numStr) {
   std::string delimiter = ",";
-  std::string numStr = numbers;
   if (numbers.substr(0, 2) == "//") {
     size_t delimEnd = numbers.find('\n');
     if (numbers[2] == '[') {
@@ -19,36 +18,48 @@ int StringCalculator::add(const std::string& numbers) {
     }
     numStr = numbers.substr(delimEnd + 1);
   }
+  return delimiter;
+}
+
+std::vector<std::string> split(const std::string& str, const std::string& delimiter) {
+  std::vector<std::string> tokens;
+  size_t start = 0, pos = 0;
+  while (start < str.size()) {
+    pos = str.find(delimiter, start);
+    std::string token = (pos == std::string::npos) ? str.substr(start) : str.substr(start, pos - start);
+    if (!token.empty()) tokens.push_back(token);
+    if (pos == std::string::npos) break;
+    start = pos + delimiter.length();
+  }
+  return tokens;
+}
+
+int parseInt(const std::string& token) {
+  int num = 0;
+  std::stringstream ss(token);
+  ss >> num;
+  if (ss.fail()) throw std::invalid_argument("Invalid number: " + token);
+  return num;
+}
+} // namespace
+
+int StringCalculator::add(const std::string& numbers) {
+  if (numbers.empty()) return 0;
+  std::string numStr = numbers;
+  std::string delimiter = extractDelimiter(numbers, numStr);
   std::vector<int> parsedNumbers = parseNumbers(numStr, delimiter);
   validateNumbers(parsedNumbers);
   return sumNumbers(parsedNumbers);
 }
 
-std::vector<int> StringCalculator::parseNumbers(const std::string& numbers, std::string& delimiter) {
-  std::vector<int> result;
-  std::string del = delimiter;
+std::vector<int> StringCalculator::parseNumbers(const std::string& numbers,
+                                                std::string& delimiter) {
   std::string str = numbers;
   std::replace(str.begin(), str.end(), '\n', ',');
-  size_t pos = 0, start = 0;
-  while (start < str.size()) {
-    pos = str.find(del, start);
-    std::string token;
-    if (pos == std::string::npos) {
-      token = str.substr(start);
-    } else {
-      token = str.substr(start, pos - start);
-    }
-    if (!token.empty()) {
-      int num = 0;
-      std::stringstream ss(token);
-      ss >> num;
-      if (ss.fail()) {
-        throw std::invalid_argument("Invalid number: " + token);
-      }
-      result.push_back(num);
-    }
-    if (pos == std::string::npos) break;
-    start = pos + del.length();
+  std::vector<std::string> tokens = split(str, delimiter);
+  std::vector<int> result;
+  for (const auto& token : tokens) {
+    result.push_back(parseInt(token));
   }
   return result;
 }
@@ -72,7 +83,8 @@ int StringCalculator::sumNumbers(const std::vector<int>& numbers) {
   return sum;
 }
 
-std::string StringCalculator::join(const std::vector<int>& numbers, const std::string& delimiter) {
+std::string StringCalculator::join(const std::vector<int>& numbers,
+                                   const std::string& delimiter) {
   std::ostringstream oss;
   for (size_t i = 0; i < numbers.size(); ++i) {
     if (i > 0) oss << delimiter;

@@ -6,6 +6,7 @@
 #include <vector>
 
 namespace {
+
 std::string extractDelimiter(const std::string& numbers, std::string& numStr) {
   std::string delimiter = ",";
   if (numbers.substr(0, 2) == "//") {
@@ -21,16 +22,33 @@ std::string extractDelimiter(const std::string& numbers, std::string& numStr) {
   return delimiter;
 }
 
+std::vector<std::string> splitOnce(const std::string& str, const std::string& delimiter, size_t start) {
+  std::vector<std::string> tokens;
+  size_t pos = str.find(delimiter, start);
+  if (pos == std::string::npos) {
+    tokens.push_back(str.substr(start));
+  } else {
+    tokens.push_back(str.substr(start, pos - start));
+    tokens.push_back(str.substr(pos + delimiter.length()));
+  }
+  return tokens;
+}
+
+void splitRecursive(const std::string& str, const std::string& delimiter, size_t start, std::vector<std::string>& tokens) {
+  size_t pos = str.find(delimiter, start);
+  if (pos == std::string::npos) {
+    std::string token = str.substr(start);
+    if (!token.empty()) tokens.push_back(token);
+    return;
+  }
+  std::string token = str.substr(start, pos - start);
+  if (!token.empty()) tokens.push_back(token);
+  splitRecursive(str, delimiter, pos + delimiter.length(), tokens);
+}
+
 std::vector<std::string> split(const std::string& str, const std::string& delimiter) {
   std::vector<std::string> tokens;
-  size_t start = 0, pos = 0;
-  while (start < str.size()) {
-    pos = str.find(delimiter, start);
-    std::string token = (pos == std::string::npos) ? str.substr(start) : str.substr(start, pos - start);
-    if (!token.empty()) tokens.push_back(token);
-    if (pos == std::string::npos) break;
-    start = pos + delimiter.length();
-  }
+  splitRecursive(str, delimiter, 0, tokens);
   return tokens;
 }
 
@@ -41,6 +59,15 @@ int parseInt(const std::string& token) {
   if (ss.fail()) throw std::invalid_argument("Invalid number: " + token);
   return num;
 }
+
+std::vector<int> findNegatives(const std::vector<int>& numbers) {
+  std::vector<int> negatives;
+  for (int n : numbers) {
+    if (n < 0) negatives.push_back(n);
+  }
+  return negatives;
+}
+
 } // namespace
 
 int StringCalculator::add(const std::string& numbers) {
@@ -65,10 +92,7 @@ std::vector<int> StringCalculator::parseNumbers(const std::string& numbers,
 }
 
 void StringCalculator::validateNumbers(const std::vector<int>& numbers) {
-  std::vector<int> negatives;
-  for (int n : numbers) {
-    if (n < 0) negatives.push_back(n);
-  }
+  std::vector<int> negatives = findNegatives(numbers);
   if (!negatives.empty()) {
     throw std::invalid_argument("negatives not allowed: " +
                                 join(negatives, ","));

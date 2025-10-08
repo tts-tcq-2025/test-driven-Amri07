@@ -2,7 +2,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <algorithm>
-#include <cctype>
+#include <string>
+#include <vector>
 
 int StringCalculator::add(const std::string& numbers) {
   if (numbers.empty()) return 0;

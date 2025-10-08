@@ -1,4 +1,6 @@
 #include "DelimiterParser.h"
+#include <string>
+#include <vector>
 
 std::string DelimiterParser::extractDelimiter(const std::string& numbers, std::string& numStr) {
     std::string delimiter = ",";
@@ -16,18 +18,18 @@ std::string DelimiterParser::extractDelimiter(const std::string& numbers, std::s
 }
 
 std::string DelimiterParser::getToken(const std::string& str, size_t start, size_t pos) {
-    return (pos == std::string::npos) 
-        ? str.substr(start)
-        : str.substr(start, pos - start);
+    return (pos == std::string::npos) ? str.substr(start) : str.substr(start, pos - start);
 }
 
-void DelimiterParser::addTokenIfNotEmpty(std::vector<std::string>& tokens, const std::string& token) {
+void DelimiterParser::addTokenIfNotEmpty(std::vector<std::string>& tokens,
+    const std::string& token) {
     if (!token.empty()) {
         tokens.push_back(token);
     }
 }
 
-std::vector<std::string> DelimiterParser::split(const std::string& str, const std::string& delimiter) {
+std::vector<std::string> DelimiterParser::split(const std::string& str,
+    const std::string& delimiter) {
     std::vector<std::string> tokens;
     size_t start = 0;
     while (start < str.size()) {

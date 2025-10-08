@@ -5,6 +5,15 @@
 class StringCalculatorTest : public ::testing::Test {
  protected:
   StringCalculator calc;
+
+  void ExpectNegativesException(const std::string& input, const std::string& expectedMsg) {
+    try {
+      calc.add(input);
+      FAIL() << "Expected exception";
+    } catch (const std::invalid_argument& e) {
+      EXPECT_TRUE(std::string(e.what()).find(expectedMsg) != std::string::npos);
+    }
+  }
 };
 
 TEST_F(StringCalculatorTest, ReturnZeroForEmptyString) {
@@ -40,19 +49,9 @@ TEST_F(StringCalculatorTest, IgnoreNumbersGreaterThan1000) {
 }
 
 TEST_F(StringCalculatorTest, NegativeNumberThrowsException) {
-  try {
-    calc.add("1,-2");
-    FAIL() << "Expected exception";
-  } catch (const std::invalid_argument& e) {
-    EXPECT_TRUE(std::string(e.what()).find("negatives not allowed: -2") != std::string::npos);
-  }
+  ExpectNegativesException("1,-2", "negatives not allowed: -2");
 }
 
 TEST_F(StringCalculatorTest, MultipleNegativesInException) {
-  try {
-    calc.add("1,-2,-3");
-    FAIL() << "Expected exception";
-  } catch (const std::invalid_argument& e) {
-    EXPECT_TRUE(std::string(e.what()).find("negatives not allowed: -2,-3") != std::string::npos);
-  }
+  ExpectNegativesException("1,-2,-3", "negatives not allowed: -2,-3");
 }

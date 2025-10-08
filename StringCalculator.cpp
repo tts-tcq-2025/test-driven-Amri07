@@ -24,7 +24,8 @@ int StringCalculator::add(const std::string& numbers) {
   return sumNumbers(parsedNumbers);
 }
 
-std::vector<int> StringCalculator::parseNumbers(const std::string& numbers, std::string& delimiter) {
+std::vector<int> StringCalculator::parseNumbers(const std::string& numbers,
+                                                std::string& delimiter) {
   std::vector<int> result;
   std::string del = delimiter;
   std::string str = numbers;
@@ -32,7 +33,9 @@ std::vector<int> StringCalculator::parseNumbers(const std::string& numbers, std:
   size_t pos = 0, start = 0;
   while (start < str.size()) {
     pos = str.find(del, start);
-    std::string token = (pos == std::string::npos) ? str.substr(start) : str.substr(start, pos - start);
+    std::string token = (pos == std::string::npos)
+                            ? str.substr(start)
+                            : str.substr(start, pos - start);
     if (!token.empty()) {
       int num = 0;
       std::stringstream ss(token);
@@ -52,7 +55,8 @@ void StringCalculator::validateNumbers(const std::vector<int>& numbers) {
     if (n < 0) negatives.push_back(n);
   }
   if (!negatives.empty()) {
-    throw std::invalid_argument("negatives not allowed: " + join(negatives, ","));
+    throw std::invalid_argument("negatives not allowed: " +
+                                join(negatives, ","));
   }
 }
 
@@ -61,14 +65,4 @@ int StringCalculator::sumNumbers(const std::vector<int>& numbers) {
   for (int n : numbers) {
     if (n <= 1000) sum += n;
   }
-  return sum;
-}
-
-std::string StringCalculator::join(const std::vector<int>& numbers, const std::string& delimiter) {
-  std::ostringstream oss;
-  for (size_t i = 0; i < numbers.size(); ++i) {
-    if (i > 0) oss << delimiter;
-    oss << numbers[i];
-  }
-  return oss.str();
-}
+  return

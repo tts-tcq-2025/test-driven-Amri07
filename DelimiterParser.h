@@ -1,8 +1,17 @@
 #ifndef DELIMITERPARSER_H_
 #define DELIMITERPARSER_H_
-#if defined(__cplusplus)
-#include <string>   // For std::string
-#include <vector>   // For std::vector
+/* C-compatible declaration */
+#ifdef __cplusplus
+extern "C" {
+#endif
+typedef struct DelimiterParser DelimiterParser;
+#ifdef __cplusplus
+}
+#endif
+/* End C-compatible declaration */
+#ifdef __cplusplus
+#include <string>
+#include <vector>
 namespace calculator {
 class DelimiterParser {
  public:
@@ -14,7 +23,5 @@ class DelimiterParser {
   static void addTokenIfNotEmpty(std::vector<std::string>& tokens, const std::string& token);
 };
 }  // namespace calculator
-#else
-typedef struct DelimiterParser DelimiterParser;
-#endif
+#endif  // __cplusplus
 #endif  // DELIMITERPARSER_H_

@@ -1,6 +1,7 @@
 #ifndef STRINGCALCULATOR_H_
 #define STRINGCALCULATOR_H_
 
+#if defined(__cplusplus)
 #include <string>
 #include <vector>
 
@@ -23,5 +24,8 @@ class StringCalculator {
 };
 
 }  // namespace calculator
+#else
+typedef struct StringCalculator StringCalculator;
+#endif
 
 #endif  // STRINGCALCULATOR_H_

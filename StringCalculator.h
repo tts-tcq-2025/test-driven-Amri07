@@ -1,5 +1,5 @@
-#ifndef STRING_CALCULATOR_H_
-#define STRING_CALCULATOR_H_
+#ifndef STRINGCALCULATOR_H_
+#define STRINGCALCULATOR_H_
 
 #include <string>
 #include <vector>
@@ -26,4 +26,4 @@ class StringCalculator {
 }  // namespace calculator
 #endif
 
-#endif  // STRING_CALCULATOR_H_
+#endif  // STRINGCALCULATOR_H_

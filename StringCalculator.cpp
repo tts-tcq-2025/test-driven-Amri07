@@ -29,6 +29,8 @@ std::vector<int> findNegatives(const std::vector<int>& numbers) {
 
 }  // namespace
 
+namespace calculator {
+
 int StringCalculator::add(const std::string& numbers) {
   if (numbers.empty()) {
     return 0;
@@ -75,3 +77,5 @@ std::string StringCalculator::join(const std::vector<int>& numbers,
   }
   return oss.str();
 }
+
+}  // namespace calculator

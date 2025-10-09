@@ -4,8 +4,13 @@
 #include <string>
 #include <vector>
 
+namespace calculator {
+
 class StringCalculator {
  public:
+  explicit StringCalculator() = default;
+  ~StringCalculator() = default;
+
   int add(const std::string& numbers);
 
  private:
@@ -14,5 +19,7 @@ class StringCalculator {
   int sumNumbers(const std::vector<int>& numbers);
   std::string join(const std::vector<int>& numbers, const std::string& delimiter);
 };
+
+}  // namespace calculator
 
 #endif  // STRINGCALCULATOR_H_

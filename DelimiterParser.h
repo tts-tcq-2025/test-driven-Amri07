@@ -1,8 +1,8 @@
 #ifndef DELIMITERPARSER_H_
 #define DELIMITERPARSER_H_
 #if defined(__cplusplus)
-#include <string>
-#include <vector>
+#include <string>   // For std::string
+#include <vector>   // For std::vector
 namespace calculator {
 class DelimiterParser {
  public:

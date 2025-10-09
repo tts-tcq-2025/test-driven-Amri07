@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 
+namespace calculator {
+
 std::string DelimiterParser::extractDelimiter(const std::string& numbers, std::string& numStr) {
     std::string delimiter = ",";
     if (numbers.substr(0, 2) == "//") {
@@ -41,3 +43,5 @@ std::vector<std::string> DelimiterParser::split(const std::string& str,
     }
     return tokens;
 }
+
+}  // namespace calculator

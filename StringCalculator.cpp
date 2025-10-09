@@ -3,6 +3,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <algorithm>
+#include <numeric>
 #include <string>
 #include <vector>
 
@@ -20,11 +21,9 @@ int parseInt(const std::string& token) {
 
 std::vector<int> findNegatives(const std::vector<int>& numbers) {
   std::vector<int> negatives;
-  for (int n : numbers) {
-    if (n < 0) {
-      negatives.push_back(n);
-    }
-  }
+  std::copy_if(numbers.begin(), numbers.end(), 
+               std::back_inserter(negatives),
+               [](int n) { return n < 0; });
   return negatives;
 }
 
@@ -42,14 +41,14 @@ int StringCalculator::add(const std::string& numbers) {
 }
 
 std::vector<int> StringCalculator::parseNumbers(const std::string& numbers,
-    std::string& delimiter) {
+    const std::string& delimiter) {
   std::string str = numbers;
   std::replace(str.begin(), str.end(), '\n', ',');
   std::vector<std::string> tokens = DelimiterParser::split(str, delimiter);
   std::vector<int> result;
-  for (const auto& token : tokens) {
-    result.push_back(parseInt(token));
-  }
+  std::transform(tokens.begin(), tokens.end(),
+                std::back_inserter(result),
+                parseInt);
   return result;
 }
 
@@ -61,13 +60,8 @@ void StringCalculator::validateNumbers(const std::vector<int>& numbers) {
 }
 
 int StringCalculator::sumNumbers(const std::vector<int>& numbers) {
-  int sum = 0;
-  for (int n : numbers) {
-    if (n <= 1000) {
-      sum += n;
-    }
-  }
-  return sum;
+  return std::accumulate(numbers.begin(), numbers.end(), 0,
+    [](int sum, int n) { return n <= 1000 ? sum + n : sum; });
 }
 
 std::string StringCalculator::join(const std::vector<int>& numbers,

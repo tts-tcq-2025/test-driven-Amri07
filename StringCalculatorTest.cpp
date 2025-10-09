@@ -4,7 +4,7 @@
 
 class StringCalculatorTest : public ::testing::Test {
  protected:
-  StringCalculator calc;
+  calculator::StringCalculator calc;
 
   void ExpectNegativesException(const std::string& input, const std::string& expectedMsg) {
     try {

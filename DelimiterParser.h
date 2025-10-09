@@ -1,5 +1,5 @@
-#ifndef DELIMITER_PARSER_H_
-#define DELIMITER_PARSER_H_
+#ifndef DELIMITERPARSER_H_
+#define DELIMITERPARSER_H_
 
 #include <string>
 #include <vector>
@@ -22,4 +22,4 @@ class DelimiterParser {
 }  // namespace calculator
 #endif
 
-#endif  // DELIMITER_PARSER_H_
+#endif  // DELIMITERPARSER_H_

@@ -21,7 +21,7 @@ int parseInt(const std::string& token) {
 
 std::vector<int> findNegatives(const std::vector<int>& numbers) {
   std::vector<int> negatives;
-  std::copy_if(numbers.begin(), numbers.end(), 
+  std::copy_if(numbers.begin(), numbers.end(),
                std::back_inserter(negatives),
                [](int n) { return n < 0; });
   return negatives;

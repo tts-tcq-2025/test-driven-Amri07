@@ -1,6 +1,15 @@
 #ifndef STRINGCALCULATOR_H_
 #define STRINGCALCULATOR_H_
-#if defined(__cplusplus)
+/* C-compatible declaration */
+#ifdef __cplusplus
+extern "C" {
+#endif
+typedef struct StringCalculator StringCalculator;
+#ifdef __cplusplus
+}
+#endif
+/* End C-compatible declaration */
+#ifdef __cplusplus
 #include <string>
 #include <vector>
 namespace calculator {
@@ -18,7 +27,5 @@ class StringCalculator {
   std::string join(const std::vector<int>& numbers, const std::string& delimiter);
 };
 }  // namespace calculator
-#else
-typedef struct StringCalculator StringCalculator;
-#endif
+#endif  // __cplusplus
 #endif  // STRINGCALCULATOR_H_

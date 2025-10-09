@@ -4,14 +4,14 @@
 #include <string>
 #include <vector>
 
-#ifdef __cplusplus
 namespace calculator {
-#endif
 
 class StringCalculator {
  public:
-  explicit StringCalculator() = default;
+  StringCalculator() = default;
   ~StringCalculator() = default;
+  StringCalculator(const StringCalculator&) = delete;
+  StringCalculator& operator=(const StringCalculator&) = delete;
 
   int add(const std::string& numbers);
 
@@ -22,8 +22,6 @@ class StringCalculator {
   std::string join(const std::vector<int>& numbers, const std::string& delimiter);
 };
 
-#ifdef __cplusplus
 }  // namespace calculator
-#endif
 
 #endif  // STRINGCALCULATOR_H_

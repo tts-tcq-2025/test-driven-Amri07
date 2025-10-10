@@ -24,11 +24,11 @@ TEST_F(StringCalculatorTest, ReturnZeroForEmptyString) {
 TEST_F(StringCalculatorTest, ReturnSingleNumber) {
   EXPECT_EQ(calc.add("1"), 1);
 }
-/*
+
 TEST_F(StringCalculatorTest, SumTwoCommaSeparatedNumbers) {
   EXPECT_EQ(calc.add("1,2"), 3);
 }
-
+/*
 TEST_F(StringCalculatorTest, SumUnknownAmountOfNumbers) {
   EXPECT_EQ(calc.add("1,2,3,4,5"), 15);
 }

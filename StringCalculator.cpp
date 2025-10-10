@@ -1,6 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include "StringCalculator.h"
 namespace calculator{
 std::vector<int> StringCalculator::extractNumbers(const std::string& input) {
     std::vector<int> result;

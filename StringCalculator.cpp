@@ -19,6 +19,16 @@ int StringCalculator::add(const std::string& numbers) {
         int number = std::stoi(begin->str());
         return number;
     }
-  throw "Not Implemented Exception";
+    std::stringstream ss(numbers);
+    std::string token;
+    int sum = 0;
+
+    while (std::getline(ss, token, ',')) {
+        if (!token.empty()) {
+            sum += std::stoi(token);
+        }
+    }
+
+  return sum;
 }
 }

@@ -1,34 +1,39 @@
-#include "StringCalculator.h"
-#include <regex>
+#include <iostream>
+#include <algorithm>
+namespace calculator{
+std::vector<int> StringCalculator::extractNumbers(const std::string& input) {
+    std::vector<int> result;
+    if (input.empty()) return result;
 
-
-namespace calculator {
-
-int StringCalculator::add(const std::string& numbers) {
-
-  if (numbers.empty()) {
-    return 0;
-  }
-    std::regex number_pattern("\\d+");
-    std::sregex_iterator begin(numbers.begin(), numbers.end(), number_pattern);
-    std::sregex_iterator end;
-
-    int count = std::distance(begin, end);
-
-    if (count == 1) {
-        int number = std::stoi(begin->str());
-        return number;
-    }
-    std::stringstream ss(numbers);
+    std::stringstream ss(input);
     std::string token;
-    int sum = 0;
 
     while (std::getline(ss, token, ',')) {
         if (!token.empty()) {
-            sum += std::stoi(token);
+            result.push_back(std::stoi(token));
         }
     }
+    return result;
+}
 
-  return sum;
+int StringCalculator::sum(const std::vector<int>& numbers) {
+    int total = 0;
+    for (int n : numbers) {
+        total += n;
+    }
+    return total;
+}
+
+int StringCalculator::add(const std::string& numbers) {
+    if (numbers.empty()) {
+        return 0;
+    }
+
+    auto extracted = extractNumbers(numbers);
+    if (extracted.size() == 1) {
+        return extracted.front();
+    }
+
+    return sum(extracted);
 }
 }

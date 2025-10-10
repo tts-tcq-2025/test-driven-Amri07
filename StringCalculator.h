@@ -9,3 +9,4 @@ class StringCalculator {
   StringCalculator& operator=(const StringCalculator&) = delete;
   int add(const std::string& numbers);
 };
+}

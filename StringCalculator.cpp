@@ -10,7 +10,7 @@ int StringCalculator::add(const std::string& numbers) {
     return 0;
   }
     std::regex number_pattern("\\d+");
-    std::sregex_iterator begin(input.begin(), input.end(), number_pattern);
+    std::sregex_iterator begin(numbers.begin(), numbers.end(), number_pattern);
     std::sregex_iterator end;
 
     int count = std::distance(begin, end);
